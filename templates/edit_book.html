@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Book</h2>
+<form method="post">
+  <label>Title</label><br>
+  <input name="title" value="{{ book.title }}" required><br><br>
+  <label>Author</label><br>
+  <input name="author" value="{{ book.author }}" required><br><br>
+  <label>Genre</label><br>
+  <input name="genre" value="{{ book.genre }}"><br><br>
+  <label>Total copies</label><br>
+  <input name="total_copies" type="number" value="{{ book.total_copies }}" min="1"><br><br>
+  <button class="btn" type="submit">Update</button>
+</form>
+{% endblock %}

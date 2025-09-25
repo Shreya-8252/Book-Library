@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>My Borrowed Books</h2>
+{% if borrows %}
+  <table>
+    <tr><th>Title</th><th>Borrowed On</th><th>Action</th></tr>
+    {% for b in borrows %}
+      <tr>
+        <td>{{ b.book.title }}</td>
+        <td>{{ b.borrow_date.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>
+          <form action="{{ url_for('return_book', borrow_id=b.id) }}" method="post" onsubmit="return confirm('Return this book?');">
+            <button type="submit" class="btn">Return</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <p>You have no borrowed books right now.</p>
+{% endif %}
+{% endblock %}

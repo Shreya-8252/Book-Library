@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ book.title }}</h2>
+<p><strong>Author:</strong> {{ book.author }}</p>
+<p><strong>Genre:</strong> {{ book.genre or '—' }}</p>
+<p><strong>Available:</strong> {{ book.available_copies() }} / {{ book.total_copies }}</p>
+
+{% if session.get('user_id') %}
+  {% if user_borrowed %}
+    <p class="info">You have already borrowed this book.</p>
+  {% elif book.available_copies() <= 0 %}
+    <p class="warning">No copies available currently.</p>
+  {% else %}
+    <form action="{{ url_for('borrow_book', book_id=book.id) }}" method="post">
+      <button class="btn" type="submit">Borrow</button>
+    </form>
+  {% endif %}
+{% else %}
+  <p><a href="{{ url_for('login') }}">Login</a> to borrow this book.</p>
+{% endif %}
+{% endblock %}
